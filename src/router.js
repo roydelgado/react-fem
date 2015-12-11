@@ -6,6 +6,7 @@ import ReposPage from './pages/repos';
 import Layout from './layout.js';
 import qs from 'qs';
 import xhr from 'xhr';
+import RepoInfo from './pages/repo-info';
 
 export default Router.extend({
 
@@ -27,6 +28,7 @@ export default Router.extend({
         'auth/callback?:qs': 'authCallback',
         'login': 'login',
         'logout': 'logout',
+        'repo/:owner/:name': 'repoInfo',
         'repos': 'repos'
     },
 
@@ -62,7 +64,12 @@ export default Router.extend({
         window.location = '/';
     },
 
+    repoInfo(owner, name) {
+        const model = app.user.repos.getByFullName(owner + '/' + name);
+        this.renderPage(<RepoInfo repo={model} />)
+    },
+
     repos() {
-        this.renderPage(<ReposPage/>);
+        this.renderPage(<ReposPage repos={app.user.repos} />);
     }
 });

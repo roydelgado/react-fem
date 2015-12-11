@@ -2,6 +2,7 @@ import Router from './router';
 require('./styles/main.less');
 import app from 'ampersand-app';
 import User from './models/user'
+require('octicons/octicons/octicons.css');
 
 window.app = app;
 

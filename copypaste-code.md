@@ -67,22 +67,27 @@ Login page:
 Styles
 
 ```
-header
-  padding-top: 50px
+header {
+    padding-top: 50px;
+    border-bottom: none;
+}
 
-.label
-  height: 40px
+.label {
+    height: 40px;
 
-  .label-color
-    width: 24px
-    height: 24px
-    border: 1px solid grey
-    border-radius: 20px
-    display: inline-block
+    .label-color {
+        width: 24px;
+        height: 24px;
+        border: 1px solid grey;
+        border-radius: 20px;
+        display: inline-block;
 
-  > span
-    margin-left: 10px
-    margin-right: 10px
+        > span {
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+    }
+}
 
 ```
 
