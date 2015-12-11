@@ -1,3 +1,4 @@
+import app from 'ampersand-app';
 import React from 'react';
 import Router from 'ampersand-router';
 import PublicPage from './pages/public';
@@ -11,7 +12,8 @@ export default Router.extend({
     renderPage(page, opts = {layout: true}) {
         if (opts.layout) {
             page = (
-                <Layout>
+                //whenever user changes, its going to force an update
+                <Layout user={app.user}>
                     {page}
                 </Layout>
             );
@@ -24,6 +26,7 @@ export default Router.extend({
         '': 'public',
         'auth/callback?:qs': 'authCallback',
         'login': 'login',
+        'logout': 'logout',
         'repos': 'repos'
     },
 
@@ -34,12 +37,14 @@ export default Router.extend({
     authCallback(query) {
         query = qs.parse(query);
         console.log('query string:', query);
-
+        //deployed on heroku https://github.com/prose/gatekeeper
         xhr({
             url: 'https://react-fem-oauth.herokuapp.com/authenticate/' + query.code,
             json: true
         }, (err, req, body) => {
             console.log('got a token', body);
+            app.user.token = body.token;
+            this.redirectTo('/repos')
         });
     },
 
@@ -50,6 +55,11 @@ export default Router.extend({
             redirect_uri: window.location.origin + '/auth/callback',
             scope: 'user,repo'
         });
+    },
+
+    logout() {
+        window.localStorage.clear();
+        window.location = '/';
     },
 
     repos() {

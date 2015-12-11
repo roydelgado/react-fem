@@ -1,10 +1,18 @@
 import React from 'react';
-import NavHandler from './components/nav-handler'
+import NavHandler from './components/nav-handler';
+import ampersandMixin from 'ampersand-react-mixin';
 
 export default React.createClass({
     displayName: 'Layout',
 
+    //when the component mounts, it runs a fn to check for  models and collection,
+    // and on change, force an update:
+    mixins: [ampersandMixin],
+
     render () {
+        //ES6  destructuring assignment
+        const {user} = this.props;
+
         return (
             <NavHandler>
               <nav className='top-nav top-nav-light cf' role='navigation'>
@@ -13,7 +21,7 @@ export default React.createClass({
                 <ul className='list-unstyled list-inline cf'>
                   <li>Labelr</li>
                   <li><a href='/repos'>Repos</a></li>
-                  <li className='pull-right'><a href='/logout'>Logout</a></li>
+                  <li className='pull-right'><a href='/logout'>Logout</a> {user.login}</li>
                 </ul>
               </nav>
               <div className='container'>
