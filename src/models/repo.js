@@ -1,6 +1,8 @@
 import Model from 'ampersand-model';
 //to make sure we have a valid token
 import githubMixin from '../helpers/github-mixin';
+//include labels as a child of Repo
+import LabelCollection from './label-collection';
 
 export default Model.extend(githubMixin, {
     url () {
@@ -22,5 +24,15 @@ export default Model.extend(githubMixin, {
                 return '/repo/' + this.full_name;
             }
         }
+    },
+    //a label collection will always be included with a Repo
+    collections: {
+        labels: LabelCollection
+    },
+
+    fetch() {
+        Model.prototype.fetch.apply(this, arguments);
+        this.labels.fetch();
     }
+
 });

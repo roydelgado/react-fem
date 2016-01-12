@@ -8,16 +8,28 @@ header {
 .label {
     height: 40px;
 
-    .label-color {
+    &-color {
         width: 24px;
         height: 24px;
         border: 1px solid grey;
         border-radius: 20px;
         display: inline-block;
+    }
 
-        > span {
-            margin-left: 10px;
-            margin-right: 10px;
-        }
+    & > span {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    input {
+        width: 28%;
+    }
+
+    button {
+        width: 12%;
+    }
+
+    input, button {
+        margin: 0 1%;
     }
 }
