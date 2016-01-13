@@ -12,8 +12,14 @@ export default React.createClass({
 
     _labelCancel (event) {
         event.preventDefault();
-        this.props.label.editing = false;
-        this.setState(this.getInitialState());
+        const {label} = this.props;
+
+        if (label.saved) {
+            this.props.label.editing = false;
+            this.setState(this.getInitialState());
+        } else {
+            label.destroy();
+        }
     },
 
     _labelDelete (event) {
@@ -38,8 +44,19 @@ export default React.createClass({
 
     _handleSubmit (e) {
         e.preventDefault();
-        this.props.label.update(this.state);
-        this.props.label.editing = false;
+        const {label} = this.props;
+
+        if (label.saved) {
+            label.update(this.state);
+        } else {
+            label.save(this.state, {
+                success: () => {
+                    label.saved = true;
+                }
+            });
+        }
+
+        label.editing = false;
     },
 
     getInitialState () {
