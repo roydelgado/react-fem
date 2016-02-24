@@ -9,7 +9,7 @@ module.exports = getConfig({
   out: 'public',
   clearBeforeBuild: true,
   hostname: 'area51',
-  'port': 3210,
+  port: 3210,
   html: (context) => {
     const publicPage = React.renderToString(React.createElement(PublicPage))
       ,  layoutPage = React.renderToString(React.createElement(Layout, {user: {}}));
